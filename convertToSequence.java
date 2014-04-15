@@ -1,8 +1,6 @@
 package convertToSequence;
 
 import java.math.BigInteger;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import java.util.Arrays;
 import java.util.Stack;
 
@@ -23,7 +21,7 @@ public class convertToSequence{
 				sequenceIndex = parameters[ 0 ];
 				dictionary = parameters[ 1 ];
 			}
-
+			
 			String sequence = convertToSequence( separator, sequenceIndex, dictionary );
 			System.out.print( sequence );
 		}catch( Exception exception ){
@@ -32,7 +30,7 @@ public class convertToSequence{
 	}
 
 	public static final String convertToSequence( String separator, String sequenceIndex, String dictionary ){
-		if( separator == null || separator == EMPTY_STRING ){
+		if( separator == null || EMPTY_STRING.equals( separator ) ){
 			separator = DEFAULT_SEPARATOR;
 		}
 
@@ -41,7 +39,7 @@ public class convertToSequence{
 				so that we can use the capabilities of arrays in java.
 		*/
 		String dictionaryList[ ] = null;
-		if( contains( dictionary, Pattern.compile( separator ) ) ){
+		if( dictionary.matches( separator ) ){
 			dictionaryList = dictionary.split( separator );
 		}else{
 			/*
@@ -62,7 +60,7 @@ public class convertToSequence{
 		int lastIndex = dictionarySequenceLength - 1;
 
 		BigInteger index = new BigInteger( sequenceIndex );
-		BigInteger remainder;
+		BigInteger remainder = BigInteger.ZERO;
 
 		Stack<String> sequenceStack = new Stack<>( );
 		do{
@@ -78,23 +76,5 @@ public class convertToSequence{
 		String sequenceList[ ] = sequenceStack.toArray( ( new String[ ]{ } ) );
 		String sequence = Arrays.toString( sequenceList ).replaceAll( ", ", separator ).replaceAll( "\\[|\\]|\\s", "" );
 		return sequence;
-	}
-
-	/*
-		This will check if the pattern is found in the string.
-		This will be used for finding the separator in the given sequence.
-		This is made private and static so that it will not be even
-			accessible using reflections.
-	*/
-	private static final boolean contains( String string, Pattern pattern ){
-		Matcher matcher = pattern.matcher( string );
-		int matchCount = 0;
-		while( matcher.find( ) ){
-			matchCount++;
-			if( matchCount > 0 ){
-				return true;
-			}
-		}
-		return false;
 	}
 }
