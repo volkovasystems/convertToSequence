@@ -13,27 +13,23 @@ public class convertToSequence{
 	private static final String EMPTY_STRING = "";
 
 	public static void main( String... parameters ){
-		try{
-			String separator = parameters[ 0 ];
-			String sequenceIndex = parameters[ 1 ];
-			String dictionary = EMPTY_STRING;
+		String sequenceIndex = parameters[ 0 ];
+		String dictionary = parameters[ 1 ];
+		String separator = EMPTY_STRING;
 
-			if( parameters.length == 3 ){
-				dictionary = parameters[ 2 ];
-			}else if( parameters.length == 2 ){
-				separator = EMPTY_STRING;
-				sequenceIndex = parameters[ 0 ];
-				dictionary = parameters[ 1 ];
-			}
-			
-			String sequence = convertToSequence( separator, sequenceIndex, dictionary );
+		if( parameters.length == 3 ){
+			separator = parameters[ 2 ];
+		}
+
+		try{	
+			String sequence = convertToSequence( sequenceIndex, dictionary, separator );
 			System.out.print( sequence );
 		}catch( Exception exception ){
 			System.err.print( exception.getMessage( ) );
 		}
 	}
 
-	public static final String convertToSequence( String separator, String sequenceIndex, String dictionary ){
+	public static final String convertToSequence( String sequenceIndex, String dictionary, String separator ){
 		if( separator == null || EMPTY_STRING.equals( separator ) ){
 			separator = DEFAULT_SEPARATOR;
 		}
