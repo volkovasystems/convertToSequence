@@ -4,10 +4,6 @@ import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.Stack;
 
-/*
-	NOTE: Always compile with '-d .' 
-		And always run with <package-name>.<class-name> format
-*/
 public class convertToSequence{
 	private static final String DEFAULT_SEPARATOR = ",";
 	private static final String EMPTY_STRING = "";
