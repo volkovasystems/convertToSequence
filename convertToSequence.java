@@ -30,7 +30,7 @@ public class convertToSequence{
 	}
 
 	public static final String convertToSequence( String sequenceIndex, String dictionary, String separator ){
-		if( separator == null || EMPTY_STRING.equals( separator ) ){
+		if( separator == null || separator.equals( EMPTY_STRING ) ){
 			separator = DEFAULT_SEPARATOR;
 		}
 
