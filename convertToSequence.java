@@ -41,6 +41,8 @@ public class convertToSequence{
 			/*
 				If we can't find any separator then separate
 					them by empty spaces.
+
+				This is for cases like "abcdefghijklmnopqrstuvwxyz"
 			*/
 			dictionaryList = dictionary.split( EMPTY_STRING );
 
