@@ -26,7 +26,7 @@ public class convertToSequence{
 	}
 
 	public static final String convertToSequence( String sequenceIndex, String dictionary, String separator ){
-		if( separator == null || separator.equals( EMPTY_STRING ) ){
+		if( separator == null ){
 			separator = DEFAULT_SEPARATOR;
 		}
 
@@ -73,7 +73,7 @@ public class convertToSequence{
 
 		String sequenceList[ ] = sequenceStack.toArray( ( new String[ ]{ } ) );
 		String sequence = Arrays.toString( sequenceList ).replaceAll( ", ", separator ).replaceAll( "\\[|\\]|\\s", "" );
-		
+
 		return sequence;
 	}
 }
