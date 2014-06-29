@@ -73,6 +73,7 @@ public class convertToSequence{
 
 		String sequenceList[ ] = sequenceStack.toArray( ( new String[ ]{ } ) );
 		String sequence = Arrays.toString( sequenceList ).replaceAll( ", ", separator ).replaceAll( "\\[|\\]|\\s", "" );
+		
 		return sequence;
 	}
 }
