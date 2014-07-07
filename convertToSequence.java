@@ -68,7 +68,13 @@ public class convertToSequence{
 			}else if( remainder.compareTo( BigInteger.ZERO ) == 0 ){
 				sequenceStack.push( dictionaryList[ lastIndex ] );
 			}
+
 			index = index.divide( dictionaryLength );
+
+            //This fucking code block solves the fucking issue!
+            if( remainder.compareTo( BigInteger.ZERO ) == 0 ){
+                index = index.subtract( BigInteger.ONE );
+            }
 		}while( index.compareTo( BigInteger.ZERO ) != 0 );
 
 		String sequenceList[ ] = sequenceStack.toArray( ( new String[ ]{ } ) );
