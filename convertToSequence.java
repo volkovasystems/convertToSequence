@@ -17,16 +17,22 @@ public class convertToSequence{
 			separator = parameters[ 2 ];
 		}
 
+		//: @todo: We need to expose this as an annotation object.
+		if( separator.equals( "@null" ) ){
+			separator = null;
+		}
+
 		try{	
 			String sequence = convertToSequence( sequenceIndex, dictionary, separator );
 			System.out.print( sequence );
+
 		}catch( Exception exception ){
 			System.err.print( exception.getMessage( ) );
 		}
 	}
 
 	public static final String convertToSequence( String sequenceIndex, String dictionary, String separator ){
-		if( separator == null ){
+		if( separator.equals( null ) ){
 			separator = DEFAULT_SEPARATOR;
 		}
 
@@ -37,6 +43,7 @@ public class convertToSequence{
 		String dictionaryList[ ] = null;
 		if( dictionary.matches( separator ) ){
 			dictionaryList = dictionary.split( separator );
+
 		}else{
 			/*
 				If we can't find any separator then separate
