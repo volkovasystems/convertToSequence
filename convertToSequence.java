@@ -3,6 +3,7 @@ package convertToSequence;
 import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.Stack;
+import java.util.LinkedList;
 
 public class convertToSequence{
 	private static final String DEFAULT_SEPARATOR = ",";
@@ -31,18 +32,22 @@ public class convertToSequence{
 		}
 	}
 
-	public static final String convertToSequence( String sequenceIndex, String dictionary, String separator ){
+	public static final String convertToSequence( String sequenceIndex, String dictionary, String separator )
+		throws Exception
+	{
 		if( separator.equals( null ) ){
 			separator = DEFAULT_SEPARATOR;
 		}
+
+		String separatorPattern = separator.replaceAll( "([\\W\\S])", "\\\\$1" );
 
 		/*
 			We need to split the dictionary
 				so that we can use the capabilities of arrays in java.
 		*/
 		String dictionaryList[ ] = null;
-		if( dictionary.matches( separator ) ){
-			dictionaryList = dictionary.split( separator );
+		if( dictionary.contains( separator ) ){
+			dictionaryList = dictionary.split( separatorPattern );
 
 		}else{
 			/*
@@ -52,13 +57,13 @@ public class convertToSequence{
 				This is for cases like "abcdefghijklmnopqrstuvwxyz"
 			*/
 			dictionaryList = dictionary.split( EMPTY_STRING );
-
-			/*
-				We are doing this because there's an extra 
-					null element when we split by empty string.
-			*/
-			dictionaryList = Arrays.copyOfRange( dictionaryList, 1, dictionaryList.length );
 		}
+
+		// This will remove anything empty on the sequence list.
+		LinkedList<String> list = new LinkedList<>( Arrays.asList( dictionaryList ) );
+		while( list.remove( "" ) );
+		while( list.remove( null ) );
+		dictionaryList = list.toArray( new String[ 0 ] );
 
 		Integer dictionarySequenceLength = dictionaryList.length;
 		BigInteger dictionaryLength = new BigInteger( dictionarySequenceLength.toString( ) );
@@ -70,8 +75,10 @@ public class convertToSequence{
 		Stack<String> sequenceStack = new Stack<>( );
 		do{
 			remainder = index.mod( dictionaryLength );
+
 			if( remainder.compareTo( BigInteger.ZERO ) != 0 ){
 				sequenceStack.push( dictionaryList[ remainder.intValue( ) - 1 ] );
+
 			}else if( remainder.compareTo( BigInteger.ZERO ) == 0 ){
 				sequenceStack.push( dictionaryList[ lastIndex ] );
 			}
@@ -82,6 +89,7 @@ public class convertToSequence{
             if( remainder.compareTo( BigInteger.ZERO ) == 0 ){
                 index = index.subtract( BigInteger.ONE );
             }
+
 		}while( index.compareTo( BigInteger.ZERO ) != 0 );
 
 		String sequenceList[ ] = sequenceStack.toArray( ( new String[ ]{ } ) );
